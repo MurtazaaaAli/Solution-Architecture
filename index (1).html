@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Murtaza Ali | Solution Architect & MSP Expert</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050a14;--bg2:#0a1628;--bg3:#0f1f3d;--accent:#00d4ff;--accent2:#7c3aed;--accent3:#06ffa5;--text:#e2e8f0;--muted:#64748b;--card:#0d1f3c;--border:rgba(0,212,255,0.15)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;background:rgba(5,10,20,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;transition:color .3s;position:relative;padding-bottom:4px}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:10}
+.hamburger span{width:24px;height:2px;background:var(--accent);transition:.3s;display:block}
+@media(max-width:768px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(5,10,20,.98);flex-direction:column;padding:1.5rem 2rem;gap:1.2rem;border-bottom:1px solid var(--border)}.nav-links.open{display:flex}.hamburger{display:flex}}
+
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.glow-bg{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,.05) 0%,transparent 70%);pointer-events:none;z-index:0;transition:left .15s,top .15s}
+
+section.page{min-height:100vh;padding:7rem 2rem 5rem;max-width:1200px;margin:0 auto;position:relative;z-index:1}
+
+/* HERO */
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:center}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;text-align:center}}
+.badge-pill{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem 1rem;background:rgba(6,255,165,.08);border:1px solid rgba(6,255,165,.25);border-radius:50px;font-size:.78rem;color:var(--accent3);margin-bottom:1.2rem}
+.badge-pill::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent3);animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero-text h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:.6rem}
+.hero-text h1 .gr{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.role-tag{font-size:1.05rem;font-weight:600;color:var(--text);margin-bottom:.4rem}
+.tagline{font-size:.92rem;color:var(--muted);line-height:1.75;margin-bottom:1.8rem;max-width:520px}
+@media(max-width:900px){.tagline{margin:0 auto 1.8rem}}
+.hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2rem}
+@media(max-width:900px){.hero-btns{justify-content:center}}
+.btn-p{padding:.75rem 1.8rem;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:8px;color:#fff;font-weight:600;cursor:pointer;text-decoration:none;font-size:.9rem;transition:transform .2s,box-shadow .2s;display:inline-block}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,212,255,.35)}
+.btn-o{padding:.75rem 1.8rem;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--accent);font-weight:600;cursor:pointer;text-decoration:none;font-size:.9rem;transition:all .2s;display:inline-block}
+.btn-o:hover{background:rgba(0,212,255,.1);border-color:var(--accent)}
+
+/* MINI SERVICE CHIPS */
+.mini-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+@media(max-width:900px){.mini-chips{justify-content:center}}
+.chip{padding:.3rem .8rem;background:rgba(0,212,255,.06);border:1px solid var(--border);border-radius:50px;font-size:.75rem;color:var(--muted);transition:all .25s;cursor:default}
+.chip:hover{background:rgba(0,212,255,.15);border-color:var(--accent);color:var(--accent)}
+
+/* PROFILE CARD */
+.profile-wrap{display:flex;justify-content:center;perspective:1200px}
+.profile-card{width:290px;border-radius:22px;background:linear-gradient(145deg,#0d1f3c,#07122a);border:1px solid var(--border);padding:2rem 1.5rem;display:flex;flex-direction:column;align-items:center;gap:.8rem;transform-style:preserve-3d;transition:transform .08s;position:relative;overflow:hidden;animation:float 4s ease-in-out infinite}
+.profile-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,.04),rgba(124,58,237,.04))}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.orbit{position:absolute;border:1px dashed rgba(0,212,255,.18);border-radius:50%;animation:orb 8s linear infinite}
+.orbit-dot{position:absolute;top:-5px;left:50%;width:9px;height:9px;border-radius:50%;transform:translateX(-50%)}
+@keyframes orb{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.profile-photo{width:130px;height:130px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--accent);box-shadow:0 0 28px rgba(0,212,255,.45);position:relative;z-index:1}
+.p-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.15rem;z-index:1;text-align:center}
+.p-role{font-size:.82rem;color:var(--accent);z-index:1;text-align:center}
+.p-loc{font-size:.78rem;color:var(--muted);z-index:1}
+.cert-chips{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;z-index:1;margin-top:.3rem}
+.cc{font-size:.68rem;padding:.2rem .55rem;border-radius:50px;font-weight:600}
+
+/* SECTION TITLE */
+.st{text-align:center;margin-bottom:3rem}
+.st .tag{font-size:.75rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:.4rem}
+.st h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.7rem,3vw,2.3rem);font-weight:700}
+.st p{color:var(--muted);margin-top:.5rem;max-width:580px;margin-left:auto;margin-right:auto;font-size:.92rem;line-height:1.7}
+
+/* STATS */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:3rem}
+.stat{padding:1.2rem;background:var(--card);border:1px solid var(--border);border-radius:14px;text-align:center;transition:all .3s}
+.stat:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 8px 25px rgba(0,212,255,.15)}
+.stat .num{font-size:1.9rem;font-weight:700;color:var(--accent);font-family:'Space Grotesk',sans-serif}
+.stat .lbl{font-size:.75rem;color:var(--muted);margin-top:.15rem}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+.about-text p{color:var(--muted);line-height:1.8;margin-bottom:1rem;font-size:.92rem}
+.about-text strong{color:var(--text)}
+
+/* CERTS GRID */
+.certs-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+@media(max-width:500px){.certs-grid{grid-template-columns:1fr}}
+.cert-item{display:flex;align-items:center;gap:.7rem;padding:.8rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:all .3s}
+.cert-item:hover{border-color:var(--accent2);background:rgba(124,58,237,.07);transform:translateX(4px)}
+.cert-badge{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;flex-shrink:0;text-align:center;line-height:1.2}
+.cert-name{font-size:.78rem;font-weight:600;line-height:1.3}
+.cert-issuer{font-size:.7rem;color:var(--muted)}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.2rem}
+.skill-card{padding:1.4rem;background:var(--card);border:1px solid var(--border);border-radius:14px;transition:all .3s;position:relative;overflow:hidden}
+.skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.skill-card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 12px 35px rgba(0,212,255,.15)}
+.skill-card h3{font-size:.95rem;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.tag-wrap{display:flex;flex-wrap:wrap;gap:.45rem}
+.stag{padding:.28rem .65rem;background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.18);border-radius:50px;font-size:.74rem;color:var(--accent);transition:all .2s}
+.stag:hover{background:rgba(0,212,255,.18);transform:scale(1.05)}
+
+/* SERVICES */
+.services-main{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.svc{padding:1.8rem;background:var(--card);border:1px solid var(--border);border-radius:16px;transition:all .4s;position:relative;overflow:hidden;cursor:default}
+.svc::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,.04),rgba(124,58,237,.04));opacity:0;transition:opacity .3s}
+.svc:hover{transform:translateY(-7px) rotateX(1.5deg);border-color:var(--accent);box-shadow:0 18px 45px rgba(0,212,255,.18)}
+.svc:hover::after{opacity:1}
+.svc-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.1rem;border:1px solid var(--border);transition:all .3s}
+.svc:hover .svc-icon{border-color:var(--accent)}
+.svc h3{font-size:1rem;font-weight:700;margin-bottom:.5rem}
+.svc p{font-size:.83rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem}
+.svc-features{list-style:none;display:flex;flex-direction:column;gap:.3rem}
+.svc-features li{font-size:.78rem;color:var(--muted);padding-left:1rem;position:relative}
+.svc-features li::before{content:'▹';position:absolute;left:0;color:var(--accent3)}
+.svc-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.8rem}
+.svc-tags span{font-size:.7rem;padding:.22rem .55rem;background:rgba(6,255,165,.07);border:1px solid rgba(6,255,165,.18);border-radius:4px;color:var(--accent3)}
+
+/* MSP SECTION */
+.msp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.msp-card{padding:1.3rem;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:all .3s;text-align:center}
+.msp-card:hover{border-color:var(--accent2);transform:translateY(-5px);box-shadow:0 10px 30px rgba(124,58,237,.2)}
+.msp-card .msp-icon{font-size:2rem;margin-bottom:.6rem}
+.msp-card h4{font-size:.9rem;font-weight:600;margin-bottom:.4rem}
+.msp-card p{font-size:.78rem;color:var(--muted);line-height:1.6}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2),transparent)}
+.t-item{position:relative;margin-bottom:2rem;padding:1.4rem;background:var(--card);border:1px solid var(--border);border-radius:14px;transition:all .3s}
+.t-item::before{content:'';position:absolute;left:-2.5rem;top:1.4rem;width:13px;height:13px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 14px rgba(0,212,255,.5)}
+.t-item:hover{border-color:var(--accent);transform:translateX(5px);box-shadow:0 8px 28px rgba(0,212,255,.14)}
+.t-title{font-size:.98rem;font-weight:700}
+.t-company{font-size:.83rem;color:var(--accent);margin:.3rem 0 .7rem}
+.t-desc{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+.t-desc li{font-size:.82rem;color:var(--muted);padding-left:1rem;position:relative;line-height:1.6}
+.t-desc li::before{content:'▹';position:absolute;left:0;color:var(--accent)}
+.t-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.8rem}
+.t-tags span{font-size:.7rem;padding:.22rem .55rem;background:rgba(0,212,255,.07);border:1px solid var(--border);border-radius:4px;color:var(--muted)}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem;margin-top:2.5rem}
+.proj{padding:1.3rem;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:all .3s}
+.proj:hover{border-color:var(--accent3);transform:translateY(-4px);box-shadow:0 8px 24px rgba(6,255,165,.12)}
+.proj .p-icon{font-size:1.7rem;margin-bottom:.6rem}
+.proj h4{font-size:.9rem;font-weight:600;margin-bottom:.4rem}
+.proj p{font-size:.78rem;color:var(--muted);line-height:1.6}
+.proj .metric{font-size:.75rem;color:var(--accent3);font-weight:600;margin-top:.5rem;display:flex;align-items:center;gap:.3rem}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
+.contact-info{display:flex;flex-direction:column;gap:.8rem}
+.ccard{display:flex;align-items:center;gap:.9rem;padding:1rem 1.2rem;background:var(--card);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);transition:all .3s}
+.ccard:hover{border-color:var(--accent);transform:translateX(5px);box-shadow:0 5px 18px rgba(0,212,255,.14)}
+.ccard-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.ccard .c-lbl{font-size:.72rem;color:var(--muted)}
+.ccard .c-val{font-size:.85rem;font-weight:500}
+.cal-box{padding:1.4rem;background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(124,58,237,.08));border:1px solid var(--border);border-radius:12px;text-align:center;margin-top:.5rem}
+.cal-box p{font-size:.83rem;color:var(--muted);margin-bottom:.8rem;line-height:1.6}
+.cform{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.8rem}
+.cform h3{margin-bottom:1.3rem;font-size:1rem;font-weight:600}
+.fg{margin-bottom:1rem}
+.fg label{display:block;font-size:.76rem;color:var(--muted);margin-bottom:.35rem}
+.fg input,.fg textarea,.fg select{width:100%;padding:.75rem .9rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:.87rem;outline:none;transition:border .3s}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--accent)}
+.fg select option{background:#0d1f3c}
+.fg textarea{height:100px;resize:none}
+
+footer{text-align:center;padding:2rem;border-top:1px solid var(--border);color:var(--muted);font-size:.82rem;position:relative;z-index:1}
+footer .ft-name{font-family:'Space Grotesk',sans-serif;font-size:.95rem;color:var(--text);margin-bottom:.3rem}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<div class="glow-bg" id="glowBg"></div>
+
+<nav>
+  <div class="logo">MA.</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ═══════════ HOME ═══════════ -->
+<section class="page" id="home">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <div class="badge-pill">Available for Enterprise Projects &amp; MSP Partnerships</div>
+      <h1>Hi, I'm<br><span class="gr">Murtaza Ali</span></h1>
+      <div class="role-tag">Solution Architect &amp; MSP Specialist</div>
+      <p class="tagline">I help businesses build secure, scalable cloud infrastructure — from Microsoft 365 &amp; Azure deployments to full GRC compliance programs. 6+ years delivering enterprise-grade results across 50+ organisations.</p>
+      <div class="hero-btns">
+        <a href="https://calendly.com/murtazarehmat151/cloud-infrastructure-security-consultation" target="_blank" class="btn-p">📅 Book Free Consultation</a>
+        <a href="#services" class="btn-o">Explore Services</a>
+      </div>
+      <div class="mini-chips">
+        <span class="chip">☁️ Microsoft 365</span>
+        <span class="chip">🔵 Azure Cloud</span>
+        <span class="chip">🔑 Google Workspace</span>
+        <span class="chip">🛡️ Cybersecurity GRC</span>
+        <span class="chip">🔄 Data Migration</span>
+        <span class="chip">🌐 Web Management</span>
+        <span class="chip">🖥️ MSP Services</span>
+        <span class="chip">🤝 SIEM &amp; SOAR</span>
+      </div>
+    </div>
+    <div class="profile-wrap">
+      <div class="profile-card" id="profileCard">
+        <div class="orbit" style="width:190px;height:190px"><div class="orbit-dot" style="background:var(--accent)"></div></div>
+        <div class="orbit" style="width:250px;height:250px;animation-duration:14s;animation-direction:reverse"><div class="orbit-dot" style="background:var(--accent2)"></div></div>
+        <img class="profile-photo" id="profileImg" src="data:image/png;base64,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" alt="Murtaza Ali">
+        <div class="p-name">Murtaza Ali</div>
+        <div class="p-role">Solution Architect &amp; MSP Expert</div>
+        <div class="p-loc">📍 Lahore, Pakistan · Remote Worldwide</div>
+        <div class="cert-chips">
+          <span class="cc" style="background:rgba(0,120,212,.2);color:#60c0ff;border:1px solid rgba(0,120,212,.3)">AZ-104</span>
+          <span class="cc" style="background:rgba(124,58,237,.2);color:#c4b5fd;border:1px solid rgba(124,58,237,.3)">SC-200</span>
+          <span class="cc" style="background:rgba(6,255,165,.1);color:var(--accent3);border:1px solid rgba(6,255,165,.25)">ISO 27001</span>
+          <span class="cc" style="background:rgba(234,179,8,.1);color:#fde047;border:1px solid rgba(234,179,8,.25)">CCEP</span>
+        </div>
+        <div style="font-size:.72rem;color:var(--accent3);font-weight:600;z-index:1">✓ 50+ Enterprise Clients Served</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section class="page" id="about">
+  <div class="st"><div class="tag">About Me</div><h2>Who I Am</h2><p>A trusted technology partner for enterprises seeking cloud excellence, security maturity, and compliance confidence.</p></div>
+
+  <div class="stats-bar reveal">
+    <div class="stat"><div class="num">6+</div><div class="lbl">Years Experience</div></div>
+    <div class="stat"><div class="num">50+</div><div class="lbl">Enterprise Clients</div></div>
+    <div class="stat"><div class="num">100+</div><div class="lbl">Risks Managed</div></div>
+    <div class="stat"><div class="num">91%</div><div class="lbl">Risk Reduction</div></div>
+    <div class="stat"><div class="num">500+</div><div class="lbl">Controls Implemented</div></div>
+    <div class="stat"><div class="num">0</div><div class="lbl">Critical Audit Findings</div></div>
+    <div class="stat"><div class="num">15+</div><div class="lbl">Vendors Assessed</div></div>
+    <div class="stat"><div class="num">29%</div><div class="lbl">Security Posture Gain</div></div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I am a <strong>Solution Architect and MSP Specialist</strong> based in Lahore, Pakistan, delivering enterprise-grade Microsoft 365, Azure, Google Workspace, and cybersecurity solutions to organisations across the globe.</p>
+      <p>With <strong>6+ years of hands-on experience</strong>, I have built, secured, and optimised cloud infrastructure for 50+ enterprise clients — from SMBs to large-scale multi-national organisations. My work spans full Microsoft 365 tenant management, Azure cloud architecture, seamless email and data migrations, and comprehensive GRC compliance programmes.</p>
+      <p>As an <strong>MSP-focused professional</strong>, I bring a proactive, service-delivery mindset: SLA-driven support, documentation-first processes, and a commitment to making every client's environment more secure, efficient, and cost-effective.</p>
+      <p>I hold <strong>Microsoft Azure (AZ-104) and Security Operations (SC-200)</strong> certifications alongside industry credentials in ethical hacking, cybersecurity education, and IT infrastructure — ensuring a full-spectrum approach to every engagement.</p>
+    </div>
+    <div class="reveal">
+      <div style="font-size:.8rem;color:var(--accent);font-weight:600;margin-bottom:.8rem;letter-spacing:.08em;text-transform:uppercase">Certifications &amp; Credentials</div>
+      <div class="certs-grid">
+        <div class="cert-item"><div class="cert-badge" style="background:linear-gradient(135deg,#0078d4,#00bcf2)">AZ</div><div><div class="cert-name">Azure Administrator Associate</div><div class="cert-issuer">Microsoft · AZ-104</div></div></div>
+        <div class="cert-item"><div class="cert-badge" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)">SC</div><div><div class="cert-name">Security Operations Analyst</div><div class="cert-issuer">Microsoft · SC-200</div></div></div>
+        <div class="cert-item"><div class="cert-badge" style="background:linear-gradient(135deg,#ea4335,#fbbc05)">G</div><div><div class="cert-name">IT Security</div><div class="cert-issuer">Google · Jan 2023</div></div></div>
+        <div class="cert-item"><div class="cert-badge" style="background:linear-gradient(135deg,#34a853,#4285f4)">G</div><div><div class="cert-name">Sys Admin &amp; IT Infrastructure</div><div class="cert-issuer">Google · Mar 2023</div></div></div>
+        <div class="cert-item"><div class="cert-badge" style="background:linear-gradient(135deg,#1d4ed8,#1e40af)">IBM</div><div><div class="cert-name">IT Support Professional</div><div class="cert-issuer">IBM · Feb 2023</div></div></div>
+        <div class="cert-item"><div class="cert-badge" style="background:linear-gradient(135deg,#be123c,#9f1239)">EH</div><div><div class="cert-name">Ethical Hacking Essentials</div><div class="cert-issuer">Codred Tech · Feb 2023</div></div></div>
+        <div class="cert-item"><div class="cert-badge" style="background:linear-gradient(135deg,#b91c1c,#7f1d1d)">CC</div><div><div class="cert-name">Cybersecurity Educator Pro (CCEP)</div><div class="cert-issuer">Red Team Leaders · Dec 2022</div></div></div>
+        <div class="cert-item"><div class="cert-badge" style="background:linear-gradient(135deg,#059669,#10b981)">BS</div><div><div class="cert-name">BSc Information Technology</div><div class="cert-issuer">UMT Lahore · 2018–2022</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SERVICES ═══════════ -->
+<section class="page" id="services">
+  <div class="st"><div class="tag">What I Deliver</div><h2>Professional Services</h2><p>End-to-end managed solutions across cloud, security, and IT infrastructure — tailored to your business needs.</p></div>
+
+  <!-- M365 -->
+  <div style="margin-bottom:3rem">
+    <div style="font-size:.8rem;color:var(--accent);font-weight:600;margin-bottom:1.2rem;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem"><span style="width:30px;height:1px;background:var(--accent);display:inline-block"></span>Microsoft 365 Services</div>
+    <div class="services-main reveal">
+      <div class="svc">
+        <div class="svc-icon" style="background:rgba(0,120,212,.12)">📧</div>
+        <h3>Exchange Online &amp; Email Management</h3>
+        <p>Full Exchange Online administration, mailbox governance, mail-flow rules, anti-spam, DKIM/DMARC/SPF hardening, and shared mailbox management.</p>
+        <ul class="svc-features"><li>Mailbox provisioning &amp; lifecycle</li><li>Email security hardening</li><li>Distribution lists &amp; groups</li><li>Litigation hold &amp; compliance</li></ul>
+        <div class="svc-tags"><span>Exchange Online</span><span>DKIM</span><span>DMARC</span><span>SPF</span><span>Anti-Spam</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon" style="background:rgba(0,120,212,.12)">🗂️</div>
+        <h3>SharePoint &amp; Teams Administration</h3>
+        <p>SharePoint Online site architecture, permissions governance, Teams deployment, policy configuration, and external sharing controls.</p>
+        <ul class="svc-features"><li>Site collections &amp; governance</li><li>Teams policies &amp; compliance</li><li>Guest access controls</li><li>Information barriers</li></ul>
+        <div class="svc-tags"><span>SharePoint</span><span>Teams</span><span>Governance</span><span>DLP</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon" style="background:rgba(0,120,212,.12)">🔐</div>
+        <h3>M365 Security &amp; Compliance</h3>
+        <p>Microsoft Purview, Defender for M365, Conditional Access, MFA enforcement, Intune MDM/MAM, and Microsoft Sentinel SIEM integration.</p>
+        <ul class="svc-features"><li>Defender for Office 365</li><li>Purview DLP &amp; sensitivity labels</li><li>Conditional Access policies</li><li>Intune device compliance</li></ul>
+        <div class="svc-tags"><span>Defender</span><span>Purview</span><span>Intune</span><span>Sentinel</span><span>MFA</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AZURE -->
+  <div style="margin-bottom:3rem">
+    <div style="font-size:.8rem;color:#60a5fa;font-weight:600;margin-bottom:1.2rem;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem"><span style="width:30px;height:1px;background:#60a5fa;display:inline-block"></span>Microsoft Azure Services</div>
+    <div class="services-main reveal">
+      <div class="svc">
+        <div class="svc-icon" style="background:rgba(96,165,250,.1)">⚡</div>
+        <h3>Azure Infrastructure &amp; Architecture</h3>
+        <p>End-to-end Azure environment design — VNets, NSGs, subnets, hub-spoke topology, Azure Firewall, load balancers, and hybrid connectivity.</p>
+        <ul class="svc-features"><li>Landing zone design</li><li>Hybrid &amp; multi-cloud setup</li><li>Cost optimisation</li><li>Resource governance</li></ul>
+        <div class="svc-tags"><span>VNets</span><span>NSGs</span><span>Azure Firewall</span><span>ARM Templates</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon" style="background:rgba(96,165,250,.1)">🔑</div>
+        <h3>Azure Identity &amp; Access (IAM)</h3>
+        <p>Azure AD / Entra ID administration, RBAC design, Privileged Identity Management, Conditional Access, MFA, and SSO/SAML integration.</p>
+        <ul class="svc-features"><li>PIM &amp; privileged access</li><li>Conditional Access design</li><li>RBAC &amp; least-privilege</li><li>Azure AD B2B/B2C</li></ul>
+        <div class="svc-tags"><span>Entra ID</span><span>PIM</span><span>RBAC</span><span>SSO</span><span>MFA</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon" style="background:rgba(96,165,250,.1)">🛡️</div>
+        <h3>Azure Security &amp; Monitoring</h3>
+        <p>Microsoft Defender for Cloud, Azure Monitor, Sentinel SIEM/SOAR, Key Vault management, security posture assessment and remediation.</p>
+        <ul class="svc-features"><li>Defender for Cloud</li><li>Sentinel SIEM &amp; playbooks</li><li>Key Vault &amp; secrets mgmt</li><li>Security posture scoring</li></ul>
+        <div class="svc-tags"><span>Defender for Cloud</span><span>Sentinel</span><span>Key Vault</span><span>Monitor</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOOGLE -->
+  <div style="margin-bottom:3rem">
+    <div style="font-size:.8rem;color:#4ade80;font-weight:600;margin-bottom:1.2rem;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem"><span style="width:30px;height:1px;background:#4ade80;display:inline-block"></span>Google Workspace Services</div>
+    <div class="services-main reveal">
+      <div class="svc">
+        <div class="svc-icon" style="background:rgba(74,222,128,.08)">🔑</div>
+        <h3>Google Workspace Setup &amp; Admin</h3>
+        <p>Full Google Workspace deployment — domain setup, user provisioning, Gmail, Drive, Meet, Docs, Calendar, and Admin Console governance.</p>
+        <ul class="svc-features"><li>Domain &amp; DNS configuration</li><li>User &amp; OU management</li><li>Workspace security policies</li><li>Licence management</li></ul>
+        <div class="svc-tags"><span>Gmail</span><span>Drive</span><span>Meet</span><span>Admin Console</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon" style="background:rgba(74,222,128,.08)">🔄</div>
+        <h3>Email &amp; Data Migration</h3>
+        <p>Seamless, zero-downtime migration between Microsoft 365 and Google Workspace in both directions — with full data integrity validation.</p>
+        <ul class="svc-features"><li>M365 ↔ Google Workspace</li><li>Mailbox &amp; calendar migration</li><li>Drive &amp; OneDrive migration</li><li>Coexistence &amp; cutover planning</li></ul>
+        <div class="svc-tags"><span>GWMME</span><span>BitTitan</span><span>Zero Downtime</span><span>Validation</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon" style="background:rgba(74,222,128,.08)">🔒</div>
+        <h3>Google Workspace Security</h3>
+        <p>Security hardening, DLP configuration, alert rules, 2FA enforcement, Vault for eDiscovery, and endpoint management for Google-first organisations.</p>
+        <ul class="svc-features"><li>2-Step Verification enforcement</li><li>Google Vault &amp; eDiscovery</li><li>Context-Aware Access</li><li>DLP &amp; data classification</li></ul>
+        <div class="svc-tags"><span>Google Vault</span><span>DLP</span><span>2FA</span><span>Endpoint Mgmt</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CYBER / GRC -->
+  <div style="margin-bottom:3rem">
+    <div style="font-size:.8rem;color:#f87171;font-weight:600;margin-bottom:1.2rem;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem"><span style="width:30px;height:1px;background:#f87171;display:inline-block"></span>Cybersecurity &amp; GRC Services</div>
+    <div class="services-main reveal">
+      <div class="svc">
+        <div class="svc-icon" style="background:rgba(248,113,113,.08)">📋</div>
+        <h3>GRC &amp; Compliance Programs</h3>
+        <p>Full-lifecycle compliance programme management — SOC 2 Type II, HIPAA, GDPR, ISO 27001, and PCI DSS with hands-on control implementation.</p>
+        <ul class="svc-features"><li>Risk registers &amp; heatmaps</li><li>Control design &amp; testing</li><li>Evidence management</li><li>Audit-ready documentation</li></ul>
+        <div class="svc-tags"><span>SOC 2</span><span>HIPAA</span><span>GDPR</span><span>ISO 27001</span><span>PCI DSS</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon" style="background:rgba(248,113,113,.08)">🖥️</div>
+        <h3>SIEM, SOAR &amp; RMM</h3>
+        <p>Microsoft Sentinel deployment, custom KQL detection rules, SOAR playbook automation, and RMM with Intune, Endpoint Central, and NinjaOne.</p>
+        <ul class="svc-features"><li>Sentinel SIEM deployment</li><li>Custom KQL detections</li><li>Automated incident response</li><li>NinjaOne &amp; Intune RMM</li></ul>
+        <div class="svc-tags"><span>Sentinel</span><span>KQL</span><span>SOAR</span><span>Intune</span><span>NinjaOne</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon" style="background:rgba(248,113,113,.08)">🔍</div>
+        <h3>IT Risk &amp; Third-Party Assessment</h3>
+        <p>End-to-end IT Risk Assessments, vendor security evaluations, AI system impact assessments, and supply chain risk management.</p>
+        <ul class="svc-features"><li>Inherent &amp; residual risk rating</li><li>Vendor SOC 2 / ISO reviews</li><li>AI risk assessments (ISO 42001)</li><li>Penetration test reviews</li></ul>
+        <div class="svc-tags"><span>ISO 27005</span><span>NIST CSF</span><span>AI Risk</span><span>Supply Chain</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEB + MSP -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:1rem">
+    <div>
+      <div style="font-size:.8rem;color:#c084fc;font-weight:600;margin-bottom:1.2rem;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem"><span style="width:30px;height:1px;background:#c084fc;display:inline-block"></span>Website Services</div>
+      <div class="svc reveal" style="padding:1.4rem">
+        <div class="svc-icon" style="background:rgba(192,132,252,.1)">🌐</div>
+        <h3>Website Management &amp; Security</h3>
+        <p>End-to-end website security, uptime monitoring, SSL certificate management, WAF configuration, vulnerability assessments, and performance optimisation for all platforms.</p>
+        <ul class="svc-features"><li>Vulnerability &amp; pen test analysis</li><li>WAF &amp; SSL management</li><li>CMS security hardening</li><li>Uptime &amp; performance monitoring</li><li>Domain &amp; DNS management</li></ul>
+        <div class="svc-tags"><span>WAF</span><span>SSL</span><span>WordPress</span><span>DNS</span><span>CDN</span></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:.8rem;color:#fbbf24;font-weight:600;margin-bottom:1.2rem;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem"><span style="width:30px;height:1px;background:#fbbf24;display:inline-block"></span>MSP Services</div>
+      <div class="svc reveal" style="padding:1.4rem">
+        <div class="svc-icon" style="background:rgba(251,191,36,.1)">🖥️</div>
+        <h3>Managed IT Services (MSP)</h3>
+        <p>Proactive, SLA-driven managed IT services — acting as your outsourced IT department with comprehensive support, monitoring, and strategic guidance.</p>
+        <ul class="svc-features"><li>24/7 remote monitoring &amp; mgmt</li><li>Helpdesk &amp; L1/L2/L3 support</li><li>Patch &amp; update management</li><li>Backup &amp; disaster recovery</li><li>IT roadmap &amp; vCISO advisory</li></ul>
+        <div class="svc-tags"><span>RMM</span><span>Helpdesk</span><span>BCP/DR</span><span>vCISO</span><span>SLA</span></div>
+      </div>
+    </div>
+  </div>
+  @media(max-width:768px){#services .page > div:last-child{grid-template-columns:1fr}}
+</section>
+
+<!-- ═══════════ SKILLS ═══════════ -->
+<section class="page" id="skills">
+  <div class="st"><div class="tag">Expertise</div><h2>Technical Skills</h2><p>A deep, cross-domain skillset spanning cloud, security, compliance, and managed services.</p></div>
+  <div class="skills-grid">
+    <div class="skill-card reveal"><h3>🛡️ Risk &amp; Compliance Frameworks</h3><div class="tag-wrap"><span class="stag">ISO 27001</span><span class="stag">ISO 27005</span><span class="stag">NIST CSF</span><span class="stag">NIST RMF</span><span class="stag">SOC 2 Type II</span><span class="stag">HIPAA</span><span class="stag">GDPR</span><span class="stag">PCI DSS</span><span class="stag">ISO 42001 AI</span></div></div>
+    <div class="skill-card reveal"><h3>☁️ Microsoft Azure</h3><div class="tag-wrap"><span class="stag">Azure AD / Entra ID</span><span class="stag">VNets &amp; NSGs</span><span class="stag">Key Vault</span><span class="stag">Defender for Cloud</span><span class="stag">Azure Monitor</span><span class="stag">ARM Templates</span><span class="stag">Azure Firewall</span><span class="stag">PIM</span></div></div>
+    <div class="skill-card reveal"><h3>📦 Microsoft 365</h3><div class="tag-wrap"><span class="stag">Exchange Online</span><span class="stag">SharePoint Online</span><span class="stag">Microsoft Teams</span><span class="stag">Microsoft Purview</span><span class="stag">Defender for M365</span><span class="stag">Intune MDM/MAM</span><span class="stag">Power Automate</span></div></div>
+    <div class="skill-card reveal"><h3>🔑 Google Workspace</h3><div class="tag-wrap"><span class="stag">Admin Console</span><span class="stag">Gmail Security</span><span class="stag">Google Drive</span><span class="stag">Google Vault</span><span class="stag">Meet &amp; Chat</span><span class="stag">Context-Aware Access</span><span class="stag">DLP</span></div></div>
+    <div class="skill-card reveal"><h3>🔐 Cybersecurity &amp; SIEM</h3><div class="tag-wrap"><span class="stag">Microsoft Sentinel</span><span class="stag">KQL</span><span class="stag">SOAR Playbooks</span><span class="stag">Endpoint Detection</span><span class="stag">NinjaOne</span><span class="stag">Endpoint Central</span><span class="stag">Ethical Hacking</span></div></div>
+    <div class="skill-card reveal"><h3>🤝 Third-Party &amp; MSP</h3><div class="tag-wrap"><span class="stag">Vendor Risk Assessments</span><span class="stag">SOC 2 Reviews</span><span class="stag">BCP / DR</span><span class="stag">ServiceNow GRC</span><span class="stag">RMM Tooling</span><span class="stag">SLA Management</span><span class="stag">PowerShell</span></div></div>
+  </div>
+
+  <!-- MSP PILLARS -->
+  <div style="margin-top:3rem">
+    <div class="st" style="margin-bottom:1.5rem"><div class="tag">MSP Approach</div><h2>How I Deliver Value</h2></div>
+    <div class="msp-grid reveal">
+      <div class="msp-card"><div class="msp-icon">🎯</div><h4>Proactive Monitoring</h4><p>24/7 monitoring with automated alerting — issues resolved before they impact your business.</p></div>
+      <div class="msp-card"><div class="msp-icon">📄</div><h4>Documentation-First</h4><p>Every engagement delivered with complete run-books, SOPs, and handover documentation.</p></div>
+      <div class="msp-card"><div class="msp-icon">⚡</div><h4>SLA-Driven Support</h4><p>Defined response and resolution times for every ticket — no surprises, no delays.</p></div>
+      <div class="msp-card"><div class="msp-icon">🔒</div><h4>Security by Default</h4><p>Security best practices baked into every deployment — not bolted on afterwards.</p></div>
+      <div class="msp-card"><div class="msp-icon">📈</div><h4>Strategic Roadmapping</h4><p>Quarterly IT reviews, budget planning, and technology roadmaps aligned to your goals.</p></div>
+      <div class="msp-card"><div class="msp-icon">🌍</div><h4>Remote-First Delivery</h4><p>Serving clients globally with secure remote access, timezone flexibility, and async-ready workflows.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EXPERIENCE ═══════════ -->
+<section class="page" id="experience">
+  <div class="st"><div class="tag">Career</div><h2>Experience &amp; Projects</h2><p>Proven track record of delivering measurable results across enterprise environments worldwide.</p></div>
+  <div class="timeline">
+    <div class="t-item reveal">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.4rem;margin-bottom:.3rem">
+        <div class="t-title">Cloud Infrastructure &amp; Risk Management Lead</div>
+        <span style="font-size:.72rem;padding:.25rem .65rem;background:rgba(6,255,165,.1);border:1px solid rgba(6,255,165,.25);border-radius:50px;color:var(--accent3);white-space:nowrap">● Current Role</span>
+      </div>
+      <div class="t-company">Optimus Fox · Lahore</div>
+      <ul class="t-desc">
+        <li>Led end-to-end IT Risk Assessments across 1,000+ user enterprise environment (Azure cloud, hybrid, on-premises) — inherent risk, control design, residual risk rating, and treatment plans aligned to ISO 27005 and NIST CSF.</li>
+        <li>Spearheaded SOC 2 Type II compliance — implemented 50+ controls, zero critical audit findings, certified within 6 months.</li>
+        <li>Led HIPAA compliance risk assessment covering ePHI data flows, access controls, encryption, audit logging, and BAAs across 15+ stakeholders.</li>
+        <li>Conducted GDPR data protection risk assessments; implemented data mapping, DSAR workflows, and breach notification across multi-jurisdiction environments.</li>
+        <li>Managed complete ISO 27001 ISMS documentation — SoA, risk treatment plans, asset registers, internal audit schedules.</li>
+        <li>Performed Third-Party and Supply Chain Risk Assessments for 15+ vendors; maintained vendor risk remediation dashboard.</li>
+        <li>Developed enterprise Risk Register (100+ risks) and delivered quarterly executive-level risk reporting to IT leadership.</li>
+      </ul>
+      <div class="t-tags"><span>ISO 27001</span><span>SOC 2 Type II</span><span>HIPAA</span><span>GDPR</span><span>Azure</span><span>Risk Register</span><span>NIST CSF</span></div>
+    </div>
+    <div class="t-item reveal">
+      <div class="t-title">Technical Risk &amp; Security Analyst</div>
+      <div class="t-company">Next Generation Technology Solutions · Freelance</div>
+      <ul class="t-desc">
+        <li>Conducted IT risk assessments for 30+ concurrent client engagements across Azure and M365 environments.</li>
+        <li>Assessed IAM risks — Azure AD sync, MFA enforcement, Conditional Access effectiveness, and privileged access controls.</li>
+        <li>Developed 50+ risk assessment templates standardising GRC reporting and evaluation methodology across all client portfolios.</li>
+        <li>Supported clients with compliance gap analysis and remediation roadmaps against ISO 27001, NIST CSF, and SOC 2.</li>
+      </ul>
+      <div class="t-tags"><span>Azure</span><span>M365</span><span>IAM</span><span>NIST CSF</span><span>Gap Analysis</span><span>SOC 2</span></div>
+    </div>
+    <div class="t-item reveal">
+      <div class="t-title">Microsoft System Engineer</div>
+      <div class="t-company">CrecenTech Pvt. Ltd.</div>
+      <ul class="t-desc">
+        <li>Administered Microsoft 365 environments including Exchange Online, SharePoint, Teams, and Intune for 300+ user organisations.</li>
+        <li>Performed security risk assessments evaluating identity controls, DLP, and endpoint security posture — identified and remediated 15 critical security gaps.</li>
+        <li>Assessed M365 security risks including mailbox security, SharePoint governance, and Teams controls; delivered risk findings to IT management.</li>
+        <li>Supported security policy development, control documentation, and compliance evidence activities.</li>
+      </ul>
+      <div class="t-tags"><span>Microsoft 365</span><span>Exchange Online</span><span>DLP</span><span>Intune</span><span>SharePoint</span><span>Endpoint Security</span></div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div style="margin-top:3.5rem">
+    <div class="st" style="margin-bottom:1.5rem"><div class="tag">Portfolio</div><h2>Key Projects</h2></div>
+    <div class="proj-grid">
+      <div class="proj reveal"><div class="p-icon">🔒</div><h4>SOC 2 Type II &amp; HIPAA Program</h4><p>Led comprehensive risk programme covering 50+ controls across infrastructure, applications, and data privacy. Coordinated 15+ stakeholders.</p><div class="metric">✓ Zero critical findings · Certified in 6 months</div></div>
+      <div class="proj reveal"><div class="p-icon">☁️</div><h4>Azure Infrastructure Assessment</h4><p>Assessed 100+ Azure resources, identified 75 high-risk vulnerabilities, produced prioritised remediation roadmap.</p><div class="metric">✓ 91% critical risk reduction · 29% posture gain</div></div>
+      <div class="proj reveal"><div class="p-icon">🌍</div><h4>GDPR Multi-Jurisdiction Controls</h4><p>Implemented data mapping, consent management, DSAR processes, retention policies, and breach notification across EU operations.</p><div class="metric">✓ Full GDPR compliance achieved</div></div>
+      <div class="proj reveal"><div class="p-icon">🔄</div><h4>Enterprise M365 Migration</h4><p>End-to-end Microsoft 365 tenant migration and deployment for 300+ user organisation — zero data loss, minimal downtime.</p><div class="metric">✓ 100% data integrity · Zero downtime</div></div>
+      <div class="proj reveal"><div class="p-icon">🤝</div><h4>Third-Party Vendor Risk Programme</h4><p>Conducted supply chain risk assessments for 15+ vendors evaluating SOC 2, ISO 27001, BCP/DR, and sub-contractor risks.</p><div class="metric">✓ All vendor risks tracked to closure</div></div>
+      <div class="proj reveal"><div class="p-icon">🛡️</div><h4>Sentinel SIEM Deployment</h4><p>Deployed Microsoft Sentinel with custom KQL detection rules, SOAR playbooks, and automated incident response workflows.</p><div class="metric">✓ 80% reduction in MTTD</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section class="page" id="contact">
+  <div class="st"><div class="tag">Get In Touch</div><h2>Let's Work Together</h2><p>Whether you need a full MSP engagement, a one-off project, or a compliance programme — I'm here to help.</p></div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <a class="ccard" href="https://calendly.com/murtazarehmat151/cloud-infrastructure-security-consultation" target="_blank">
+        <div class="ccard-icon" style="background:rgba(6,255,165,.1);font-size:1.3rem">📅</div>
+        <div><div class="c-lbl">Schedule a Meeting</div><div class="c-val">Free Cloud &amp; Security Consultation</div></div>
+      </a>
+      <a class="ccard" href="/cdn-cgi/l/email-protection#dab7afa8aebba0bba8bfb2b7bbaeebefeb9abdb7bbb3b6f4b9b5b7">
+        <div class="ccard-icon" style="background:rgba(234,67,53,.1);font-size:1.3rem">📧</div>
+        <div><div class="c-lbl">Gmail</div><div class="c-val"><span class="__cf_email__" data-cfemail="cea3bbbcbaafb4afbcaba6a3afbafffbff8ea9a3afa7a2e0ada1a3">[email&#160;protected]</span></div></div>
+      </a>
+      <a class="ccard" href="/cdn-cgi/l/email-protection#5439212620352e357a35383d6461143c3b2039353d387a373b39">
+        <div class="ccard-icon" style="background:rgba(0,120,212,.1);font-size:1.3rem">📬</div>
+        <div><div class="c-lbl">Outlook</div><div class="c-val"><span class="__cf_email__" data-cfemail="8be6fef9ffeaf1eaa5eae7e2bbbecbe3e4ffe6eae2e7a5e8e4e6">[email&#160;protected]</span></div></div>
+      </a>
+      <a class="ccard" href="https://linkedin.com/in/murtaza-ali" target="_blank">
+        <div class="ccard-icon" style="background:rgba(10,102,194,.1);font-size:1.3rem">💼</div>
+        <div><div class="c-lbl">LinkedIn</div><div class="c-val">linkedin.com/in/murtaza-ali</div></div>
+      </a>
+      <a class="ccard" href="#">
+        <div class="ccard-icon" style="background:rgba(0,212,255,.1);font-size:1.3rem">📍</div>
+        <div><div class="c-lbl">Location</div><div class="c-val">Lahore, Pakistan · Available Remote Worldwide</div></div>
+      </a>
+      <div class="cal-box">
+        <p>🚀 Ready to secure and scale your infrastructure?<br>Book a <strong style="color:var(--text)">free 30-minute consultation</strong> — no commitment required.</p>
+        <a href="https://calendly.com/murtazarehmat151/cloud-infrastructure-security-consultation" target="_blank" class="btn-p" style="font-size:.88rem">Book on Calendly →</a>
+      </div>
+    </div>
+    <div class="cform">
+      <h3>Send a Message</h3>
+      <div class="fg"><label>Your Name</label><input type="text" placeholder="e.g. Sarah Johnson"></div>
+      <div class="fg"><label>Company / Organisation</label><input type="text" placeholder="e.g. Acme Corp Ltd."></div>
+      <div class="fg"><label>Email Address</label><input type="email" placeholder="sarah@company.com"></div>
+      <div class="fg"><label>Service Required</label>
+        <select>
+          <option>Microsoft 365 Administration</option>
+          <option>Azure Cloud Services</option>
+          <option>Google Workspace</option>
+          <option>Email / Data Migration</option>
+          <option>Cybersecurity &amp; GRC</option>
+          <option>SIEM / SOAR Deployment</option>
+          <option>Website Security</option>
+          <option>MSP / Managed IT Services</option>
+          <option>IT Risk Assessment</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="fg"><label>Message</label><textarea placeholder="Describe your project, challenge, or requirement..."></textarea></div>
+      <a href="/cdn-cgi/l/email-protection#0469717670657e6576616c696570353135446369656d682a676b69" class="btn-p" style="display:block;text-align:center;text-decoration:none;width:100%">Send Message →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-name">Murtaza Ali · Solution Architect &amp; MSP Specialist</div>
+  <p>📍 Lahore, Pakistan &nbsp;·&nbsp; Available Globally &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection#503d252224312a312235383d312461656110373d31393c7e333f3d" style="color:var(--accent);text-decoration:none"><span class="__cf_email__" data-cfemail="177a626563766d7665727f7a766326222657707a767e7b3974787a">[email&#160;protected]</span></a></p>
+  <p style="margin-top:.4rem">© 2025 Murtaza Ali · Built for Enterprise Excellence</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* Profile photo embedded as base64 */
+
+/* PARTICLES */
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
+let W,H,pts=[];
+function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
+resize();window.addEventListener('resize',resize);
+for(let i=0;i<70;i++)pts.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.4+.4,a:Math.random()*.5+.1});
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p=>{
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(0,212,255,${p.a})`;ctx.fill();
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+  });
+  pts.forEach((p,i)=>pts.slice(i+1).forEach(q=>{const d=Math.hypot(p.x-q.x,p.y-q.y);if(d<90){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=`rgba(0,212,255,${.07*(1-d/90)})`;ctx.lineWidth=.5;ctx.stroke()}}));
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* GLOW */
+const glowBg=document.getElementById('glowBg');
+document.addEventListener('mousemove',e=>{glowBg.style.left=(e.clientX-300)+'px';glowBg.style.top=(e.clientY-300)+'px'});
+
+/* 3D TILT */
+const card=document.getElementById('profileCard');
+card.addEventListener('mousemove',e=>{
+  const r=card.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+  card.style.transform=`rotateY(${x/10}deg) rotateX(${-y/10}deg) translateY(-8px)`;card.style.animation='none';
+});
+card.addEventListener('mouseleave',()=>{card.style.transform='';card.style.animation='float 4s ease-in-out infinite'});
+
+/* HAMBURGER */
+document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+
+/* ACTIVE NAV */
+const secs=['home','about','se
