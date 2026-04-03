@@ -176,7 +176,8 @@ footer{text-align:center;padding:2rem;border-top:1px solid var(--border);color:v
 footer .ft-name{font-family:'Space Grotesk',sans-serif;font-size:.95rem;color:var(--text);margin-bottom:.3rem}
 
 /* SCROLL REVEAL */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}
+.reveal{opacity:1;transform:none;transition:opacity .6s,transform .6s}
+.reveal.hidden{opacity:0;transform:translateY(22px)}
 .reveal.visible{opacity:1;transform:none}
 </style>
 </head>
@@ -489,6 +490,17 @@ footer .ft-name{font-family:'Space Grotesk',sans-serif;font-size:.95rem;color:va
       </ul>
       <div class="t-tags"><span>Microsoft 365</span><span>Exchange Online</span><span>DLP</span><span>Intune</span><span>SharePoint</span><span>Endpoint Security</span></div>
     </div>
+    <div class="t-item reveal">
+      <div class="t-title">System &amp; Network Engineer</div>
+      <div class="t-company">Think Tech Solution Pvt. Ltd.</div>
+      <ul class="t-desc">
+        <li>Deployed and managed Windows Server environments including Active Directory, DNS, DHCP, and Group Policy across multi-site infrastructure, ensuring high availability and centralised user management.</li>
+        <li>Configured and maintained pfSense firewall solutions — implemented rule-based traffic filtering, VPN tunnels, VLAN segmentation, and intrusion detection to secure network perimeters.</li>
+        <li>Delivered L1/L2 technical support for hardware, software, and network issues; maintained SLA compliance with rapid incident resolution and detailed ticketing documentation.</li>
+        <li>Assisted in implementing GDPR compliance controls including data inventory mapping, access control reviews, and user awareness procedures to meet regulatory requirements.</li>
+      </ul>
+      <div class="t-tags"><span>Windows Server</span><span>pfSense Firewall</span><span>Active Directory</span><span>L1/L2 Support</span><span>VPN</span><span>GDPR</span><span>VLAN</span></div>
+    </div>
   </div>
 
   <!-- PROJECTS -->
@@ -566,9 +578,7 @@ footer .ft-name{font-family:'Space Grotesk',sans-serif;font-size:.95rem;color:va
   <p style="margin-top:.4rem">© 2025 Murtaza Ali · Built for Enterprise Excellence</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* Profile photo embedded as base64 */
-
+<script>
 /* PARTICLES */
 const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
 let W,H,pts=[];
@@ -604,4 +614,23 @@ document.getElementById('hamburger').addEventListener('click',()=>document.getEl
 document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
 
 /* ACTIVE NAV */
-const secs=['home','about','se
+const secs=['home','about','services','skills','experience','contact'];
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));const a=document.querySelector(`.nav-links a[href="#${e.target.id}"]`);if(a)a.classList.add('active')}});
+},{threshold:.3});
+secs.forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el)});
+
+/* SCROLL REVEAL - safe version, elements already visible by default */
+window.addEventListener('load',()=>{
+  const revEls=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    revEls.forEach(el=>el.classList.add('hidden'));
+    const ro=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('hidden');e.target.classList.add('visible');ro.unobserve(e.target)}});
+    },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+    revEls.forEach(el=>ro.observe(el));
+  }
+});
+</script>
+</body>
+</html>
